@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - RevShop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #dbcbcb; /* Light background color */
+            color: #343a40; /* Dark text color */
+        }
+        .error-container {
+            text-align: center;
+            margin-top: 100px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(97, 82, 82, 0); /* Transparent background for the error box */
+        }
+        .error-code {
+            font-size: 100px; /* Large font for error code */
+            font-weight: bold;
+            color: #dc3545; /* Red color for error */
+        }
+        .error-message {
+            font-size: 24px; /* Standard font size for messages */
+            margin-bottom: 20px;
+        }
+        .btn-home {
+            margin-top: 20px;
+            padding: 10px 20px; /* Increase padding for a larger button */
+            font-size: 18px; /* Larger font size */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+        }
+        .btn-home:hover {
+            background-color: #007bff; /* Change background color on hover */
+            color: white; /* Change text color on hover */
+            transform: scale(1.05); /* Slightly scale the button on hover */
+        }
+        
+        .suggestions {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Oops! The page you're looking for could not be found.</div>
+        <a href="index.html" class="btn btn-primary btn-home">Return to Home</a>
+
+        <div class="suggestions">
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-outline-info" href="shop.html">Browse Products</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-info" href="contact.html">Contact Customer Support</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-info" href="about.html">Learn About RevShop</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-info" href="faq.html">Frequently Asked Questions</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
