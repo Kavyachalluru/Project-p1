@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://png.pngtree.com/background/20230522/original/pngtree-stage-and-podium-picture-image_2689351.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Helvetica', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            margin-top: 50px;
+            max-width: 1200px;
+        }
+
+        h2 {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .cart {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px; /* Adds space between products and payment section */
+        }
+
+        /* Product Cards */
+        .card {
+            background-color:whitesmoke;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row; /* Align items in a row */
+            align-items: center;
+        }
+
+        .card img {
+            max-height: 170px;
+            width: 370px; /* Set max width for image */
+            border-radius: 8px;
+            margin-right: 20px; /* Space between image and text */
+        }
+
+        .card-body {
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .card-text {
+            margin-bottom: 10px;
+        }
+
+        .remove-link {
+            color: #f00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .remove-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .quantity-selector input {
+            width: 50px;
+            text-align: center;
+        }
+
+        .quantity-selector button {
+            background-color: #ddd;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 5px;
+        }
+
+        /* Payment Summary */
+        .payment-summary {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .payment-summary h4 {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .payment-summary .price-details {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .payment-summary .total-price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .btn-checkout {
+            background-color: #5B86E5;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            border-radius: 25px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-checkout:hover {
+            background-color: #4a75d1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cart {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Your Cart</h2>
+        <div class="cart row">
+            <!-- Products Section -->
+            <div class="products-section col-lg-8 col-md-7">
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/2113994/pexels-photo-2113994.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Product 1</h5>
+                        <p class="card-text">Description of the product</p>
+                        <p class="card-text">$100.00</p>
+                        <div class="quantity-selector">
+                            <button>-</button>
+                            <input type="text" value="1">
+                            <button>+</button>
+                        </div>
+                        <a href="#" class="remove-link">Remove</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/120" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Product 2</h5>
+                        <p class="card-text">Description of the product</p>
+                        <p class="card-text">$150.00</p>
+                        <div class="quantity-selector">
+                            <button>-</button>
+                            <input type="text" value="1">
+                            <button>+</button>
+                        </div>
+                        <a href="#" class="remove-link">Remove</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Summary Section -->
+            <div class="payment-summary col-lg-4 col-md-5">
+                <h4>Order Summary</h4>
+                <div class="price-details">
+                    <p>Subtotal: $250.00</p>
+                    <p>Shipping: $10.00</p>
+                    <p>Tax: $20.00</p>
+                </div>
+                <div class="total-price">
+                    <p>Total: $280.00</p>
+                </div>
+                <button class="btn-checkout">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
