@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Registration - RevShop</title>
+    <link rel="stylesheet" href="Reg_Sample.css">
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById('buyerName').value.trim();
+            if (name === '' || name.length < 3) {
+                alert("Full Name must be at least 3 characters long.");
+                return false;
+            }
+
+            const email = document.getElementById('buyerEmail').value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            const password = document.getElementById('password').value;
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            const contact = document.getElementById('contact').value;
+            const contactPattern = /^[0-9]{10}$/;
+            if (!contactPattern.test(contact)) {
+                alert("Please enter a valid 10-digit contact number.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Buyer Registration</h2>
+        <form action="BuyerRegisterServlet" method="POST" onsubmit="return validateForm();">
+            <div class="form-row-col">
+                <!-- Buyer's Name -->
+                <div class="form-group form">
+                    <label for="buyerName">Full Name</label>
+                    <input type="text" id="buyerName" name="buyerName" placeholder="Enter your name" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group form">
+                    <label for="buyerEmail">Email</label>
+                    <input type="email" id="buyerEmail" name="buyerEmail" placeholder="Enter your email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Password -->
+                <div class="form-group form-col">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group form-col">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                
+                <div class="form-group form-col">
+                    <label for="contact">Contact Number</label>
+                    <input type="contact" id="contact" name="contact" placeholder="Enter your Contact Number" required>
+                </div>
+
+               
+                <div class="form-group form-col">
+                    <label for="contact">WhatsApp Number</label>
+                    <input type="contact" id="contact" name="contact" placeholder="Enter your WhatsApp Number" required>
+                </div>
+            </div>
+            
+                <div>   
+                <div class="form-group form"></div>
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                    
+                </div>
+
+            
+            
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Register</button><br>
+
+           <center>Already registered ?<a href=""> Login</a></center>
+        </div>
+        </form>
+    </div>
+</body>
+</html>
