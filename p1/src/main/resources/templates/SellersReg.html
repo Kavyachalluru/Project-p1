@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Registration - RevShop</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Form Container */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            color: #333;
+            border: 2px solid #007bff; /* Light Blue Border */
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.4);
+        }
+
+        /* Title Styling */
+        h2 {
+            text-align: center;
+            color: #007bff;
+            font-size: 26px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #007bff;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        /* Input Fields */
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            max-width: 300px; /* Limits the button width */
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 10px 15px rgba(0, 123, 255, 0.2);
+            display: block;
+            margin: 30px auto 0; /* Center the button and add space above it */
+        }
+
+        .btn:hover {
+            background-color: #3399ff;
+            transform: translateY(-3px);
+        }
+
+        /* Input Animations */
+        input:focus::placeholder {
+            color: transparent;
+            transition: color 0.3s ease;
+        }
+
+        /* Placeholder Styling */
+        ::placeholder {
+            color: #999;
+            opacity: 1;
+        }
+
+        /* Add Animation */
+        @keyframes slideUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Apply Slide Animation to Form */
+        form {
+            animation: slideUp 1s ease-in-out;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script>
+        function validateForm() {
+            // Full Name Validation
+            const name = document.getElementById('sellerName').value.trim();
+            if (name === '' || name.length < 3) {
+                alert("Full Name must be at least 3 characters long.");
+                return false;
+            }
+
+            // Email Validation
+            const email = document.getElementById('sellerEmail').value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Password Validation
+            const password = document.getElementById('password').value;
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            // Confirm Password Validation
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            // Business Name Validation
+            const businessName = document.getElementById('businessName').value.trim();
+            if (businessName === '' || businessName.length < 2) {
+                alert("Business Name must be at least 2 characters long.");
+                return false;
+            }
+
+            // Contact Number Validation
+            const contact = document.getElementById('contact').value;
+            const contactPattern = /^[0-9]{10}$/;
+            if (!contactPattern.test(contact)) {
+                alert("Please enter a valid 10-digit contact number.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Seller Registration</h2>
+        <form action="#" th:action="@{/viewSeller/register}" th:object="${sellers}" method="POST" onsubmit="return validateForm();">
+            <!-- Seller's Name -->
+            <div class="form-group">
+                <label for="sellerName">Full Name</label>
+                <input type="text" id="sellerName" name="sellerName" th:field="*{name}"  placeholder="Enter your name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="sellerEmail">Email</label>
+                <input type="email" id="sellerEmail" name="sellerEmail" th:field="*{email}" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" th:field="*{password}" placeholder="Enter your password" required>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+            <!-- Business Name -->
+            <div class="form-group">
+                <label for="businessName">Business Name</label>
+                <input type="text" id="businessName" name="businessName" th:field="*{businessName}" placeholder="Enter your business name" required>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="tel" id="contact" name="contact"  th:field="*{phoneNumber}" placeholder="Enter your contact number" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+</body>
+</html>
