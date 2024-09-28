@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Are You Happy with Our Service?</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+        .emoji:hover {
+            transform: scale(1.2);
+        }
+
+        .selected {
+            transform: scale(1.4);
+            color: #ffcc00;
+        }
+
+        .feedback-text {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            animation: fadeInUp 1s ease-in-out 0.5s;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .submit-btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: fadeInUp 1s ease-in-out 1s;
+        }
+
+        .submit-btn:hover {
+            background-color: #388e3c;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Are You Happy with Our Service?</h1>
+
+    <div class="emoji-container">
+        <span class="emoji" onclick="selectEmoji(this)">&#128577;</span>
+        <span class="emoji" onclick="selectEmoji(this)">&#128578;</span>
+        <span class="emoji" onclick="selectEmoji(this)">&#128512;</span>
+    </div>
+
+    <div class="feedback-text">Tap an emoji to give us your feedback!</div>
+    <div class="error" id="error-message">Please select an emoji before submitting.</div>
+
+    <button class="submit-btn mt-4" onclick="submitFeedback()">Submit</button>
+
+    <script>
+        let selectedEmoji = null;
+
+        function selectEmoji(element) {
+            // Remove the selected class from all emojis
+            document.querySelectorAll('.emoji').forEach(emoji => {
+                emoji.classList.remove('selected');
+            });
+            // Add the selected class to the clicked emoji
+            element.classList.add('selected');
+            selectedEmoji = element.innerHTML; // Store selected emoji
+            document.getElementById('error-message').style.display = 'none'; // Hide error message
+        }
+
+        function submitFeedback() {
+            const errorMessage = document.getElementById('error-message');
+            if (!selectedEmoji) {
+                errorMessage.style.display = 'block'; // Show error message if no emoji selected
+            } else {
+                // Here you can handle the form submission, e.g., send to server or process feedback
+                alert(`Thank you for your feedback! You selected: ${selectedEmoji}`);
+                // Reset selection after submission
+                document.querySelectorAll('.emoji').forEach(emoji => {
+                    emoji.classList.remove('selected');
+                });
+                selectedEmoji = null; // Reset selected emoji
+            }
+        }
+    </script>
+
+</body>
+</html>
