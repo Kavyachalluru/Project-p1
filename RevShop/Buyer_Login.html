@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Form Container */
+        .container {
+            width: 90%; /* Reduced the width */
+            max-width: 400px; /* Max-width now set to 400px */
+            padding: 20px; /* Reduced padding */
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+            transition: transform 0.3s ease-in-out;
+            color: #333;
+            border: 1px solid #007bff;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.4);
+        }
+
+        /* Title Styling */
+        h2 {
+            text-align: center;
+            color: #004080;
+            font-size: 32px;
+            margin-bottom: 30px;
+            position: relative;
+            font-weight: bold;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #007bff;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        /* Input Fields */
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 10px 15px rgba(0, 123, 255, 0.2);
+            display: block;
+            margin: 30px auto 10px;
+        }
+
+        .btn:hover {
+            background-color: #3399ff;
+            transform: translateY(-3px);
+        }
+
+        /* Centered Links Styling */
+        .links {
+            text-align: center;
+            margin-top: 15px; /* Added margin to give space */
+        }
+
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Home Button Styling */
+        .home-btn {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Home Button -->
+        <div class="row">
+            <!-- Home Button aligned to the left -->
+            <div class="col-12 mb-3">
+                <a href="Home.html" class="home-link">
+                    <i class="fas fa-arrow-left"></i> Home
+                </a>
+            </div>
+        </div>
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+
+            <div class="links">
+                <p>Forgot <a href="buyer_forgotpassword.html">Password?</a></p>
+                <p>Don't have an account? <a href="buyer registration.html">Register</a></p>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
