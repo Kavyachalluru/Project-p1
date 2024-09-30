@@ -19,5 +19,10 @@ public class BuyerService {
 		buyer.setRegistrationDate(LocalDateTime.now());
 		return buyer_repo.save(buyer);
 	}
+	public boolean validateBuyer(String email, String password) {
+        Buyer buyer = buyer_repo.findByEmailAndPassword(email,password);
+        // Perform password validation (you may want to hash passwords in real scenarios)
+        return buyer != null && buyer.getPassword().equals(password);
+    }
 	
 }

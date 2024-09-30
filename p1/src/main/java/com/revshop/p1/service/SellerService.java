@@ -15,5 +15,10 @@ public class SellerService {
 	public void updateSeller(Seller seller) {
 		repository.save(seller);
 	}
+	public boolean validateSeller(String email, String password) {
+        Seller seller = repository.findByEmailAndPassword(email,password);
+        return seller != null && seller.getPassword().equals(password);
+    }
+	
 	
 }
