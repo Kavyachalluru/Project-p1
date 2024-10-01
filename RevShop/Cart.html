@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RevShop Cart</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -89,7 +90,7 @@
 <body>
     <!-- Header / Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-        <a class="navbar-brand" href="Home.html">
+        <a class="navbar-brand" href="Landing main.html">
             <img src="https://i.postimg.cc/T2nXh20S/REVSHOP-main2.png" alt="RevShop Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +103,7 @@
                 <li class="nav-item mx-5"><a class="nav-link" href="About.html">About</a></li>
                 <li class="nav-item mx-5"><a class="nav-link" href="Seller_Login.html">Sell on RevShop</a></li>
                 <li class="nav-item mx-5"><a class="nav-link" href="Buyer_Login.html">Login</a></li>
-                <li class="nav-item mx-5"><a class="nav-link" href="Cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                <li class="nav-item mx-5"><a class="nav-link active" href="Cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
                     </svg>
                 </a>
@@ -164,14 +165,17 @@
 
         <div class="cart-footer d-flex flex-column align-items-end">
             <h4>Total: ₹3,892.69</h4>
-            <button class="btn btn-primary checkout-button"> Checkout <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sign-turn-right-fill" viewBox="0 0 16 16" style="margin-left: 10px;">
-                <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM9 8.466V7H7.5A1.5 1.5 0 0 0 6 8.5V11H5V8.5A2.5 2.5 0 0 1 7.5 6H9V4.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L9.41 8.658A.25.25 0 0 1 9 8.466"/>
-              </svg>
+            <button class="btn btn-primary checkout-button" onclick="redirectToCheckout()"> Checkout 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sign-turn-right-fill" viewBox="0 0 16 16" style="margin-left: 10px;">
+                    <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM9 8.466V7H7.5A1.5 1.5 0 0 0 6 8.5V11H5V8.5A2.5 2.5 0 0 1 7.5 6H9V4.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L9.41 8.658A.25.25 0 0 1 9 8.466"/>
+                </svg>
+            </button>   
         </div>
     </div>
     <!-- Footer Section -->
 <footer class="text-center text-white" style="background-color: #a39595; padding: 1rem; margin-top: 5rem;">
     <p>&copy; 2024 RevShop. All Rights Reserved.</p>
+    <p><center><b>Support:</b> revshop.ecommerce@gmail.com</center></p>
     <p>Follow us on
         <a href="https://www.facebook.com/login/" class="text-white" style="margin: 0 10px;" target="_blank">
             <i class="fab fa-facebook"></i> Facebook
@@ -187,6 +191,14 @@
         </a>
     </p>    
 </footer>
+
+<script>
+    function redirectToCheckout() {
+        // Redirect to the checkout page
+        window.location.href = 'orders page.html'; // Change 'checkout.html' to your actual checkout page URL
+    }
+</script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
