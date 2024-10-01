@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.revshop.p1.entity.Seller;
 import com.revshop.p1.service.SellerService;
 @Controller
-@RequestMapping("/viewSeller")
+@RequestMapping("/revshop")
 public class SellerViewController {
 	
 		@Autowired
@@ -25,7 +25,7 @@ public class SellerViewController {
 		@PostMapping("/register")
 		public String registerSeller(Model model,@ModelAttribute Seller seller ) {
 			service.addSeller(seller);
-			return "productspage";
+			return "login";
 		}
 		
 
