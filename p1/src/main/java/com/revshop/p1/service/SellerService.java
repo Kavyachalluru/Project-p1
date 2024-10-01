@@ -20,5 +20,9 @@ public class SellerService {
         return seller != null && seller.getPassword().equals(password);
     }
 	
+	public Seller getSellerByEmail(String email) {
+		return repository.findByEmail(email).get();
+	}
+	
 	
 }

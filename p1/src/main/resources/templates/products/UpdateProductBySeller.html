@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Update Product</title>
+</head>
+<body>
+	<form action="#" th:action="@{/revshop/product/update}" th:object="${product}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Product Name:</label>
+    <input type="text" th:field="*{name}"/><br><br>
+
+    <label>Product Brand:</label>
+    <input type="text" th:field="*{brand}"/><br><br>
+
+    <label>Product Price:</label>
+    <input type="number" th:field="*{price}"/><br><br>
+
+    <label>Discount Price:</label>
+    <input type="number" th:field="*{discountPrice}"/><br><br>
+
+    <label>Quantity:</label>
+    <input type="number" th:field="*{quantity}"/><br><br>
+
+    <label>Category:</label>
+    <input type="text" th:field="*{category}"/><br><br>
+
+    <button type="submit">Update Product</button>
+</form>
+
+</body>
+</html>
