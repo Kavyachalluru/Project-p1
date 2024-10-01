@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seller Orders</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 90%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            .btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+        /* Additional styles for the navbar */
+        .nav-link {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: blue; 
+            font-weight: normal;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 5px;
+            right: 0;
+            background: #ff0000; 
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 45%;
+            left: 0;
+            right: auto;
+        }
+        .nav-link.active::after {
+            width: 100%;
+            left: 0;
+            right: auto;
+        }
+        .nav-link.active {
+            color: #561ad7;
+            font-weight: bold;
+        }
+        .navbar {
+            background-color: #adb2c5;
+        }
+        .navbar-brand img {
+            width: 160px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <a class="navbar-brand" href="#"><img src="https://i.postimg.cc/T2nXh20S/REVSHOP-main2.png" alt="RevShop Logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-3"><a class="nav-link" href="seller_home.html"><b>Home</b></a></li>
+                <li class="nav-item mx-3"><a class="nav-link" href="sellerProducts.html"><b>Manage Products</b></a></li>
+                <li class="nav-item mx-3"><a class="nav-link active" href="sellerOrders.html"><b>Orders</b></a></li>
+                <li class="nav-item mx-3"><a class="nav-link" href="#"><b>Logout</b></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    </style>
+</head>
+<body>
+    <h2>Customer Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Product Name</th>
+                <th>Customer Name</th>
+                <th>Customer Email</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}">Order ID</td>
+                <td th:text="${order.productName}">Product Name</td>
+                <td th:text="${order.customerName}">Customer Name</td>
+                <td th:text="${order.customerEmail}">Customer Email</td>
+                <td th:text="${order.quantity}">Quantity</td>
+                <td th:text="${order.status}">Status</td>
+                <td>
+                    <a th:href="@{/processOrder(orderId=${order.id})}" class="btn btn-primary">Process</a>
+                    <a th:href="@{/cancelOrder(orderId=${order.id})}" class="btn btn-danger">Cancel</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
