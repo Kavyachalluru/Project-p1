@@ -34,7 +34,7 @@ public class BuyerController {
 	@GetMapping("/buyerLogin")
 	public String showLoginForm(Model model) {
 		model.addAttribute("buyers", new Buyer());
-		return "revHome";
+		return "showProducts";
 	}
 	
 	
