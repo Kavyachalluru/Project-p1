@@ -1,0 +1,110 @@
+<%@ page import="java.util.List" %>
+<%@ page import="entity.Order" %>
+<%@ page import="entity.OrderItem" %>
+
+<%@ page session="true" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+        .order-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .order-card h5 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .order-details {
+            font-size: 14px;
+            color: #555;
+        }
+        .order-summary {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-track {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-track:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-5">
+    <h2>Your Orders</h2>
+
+    <!-- Assuming orders is a List of Order objects passed from the servlet -->
+    <%
+        List<Order> orders = (List<Order>) request.getAttribute("orders");
+        if (orders != null && !orders.isEmpty()) {
+            for (Order order : orders) {
+    %>
+        <div class="order-card">
+            <h5>Order ID: <%= order.getOrderID() %></h5>
+            <p class="order-details">Placed on: <%= order.getOrderDate() %> | Total: ₹<%= order.getTotalAmount() %></p>
+
+            <!-- Display each product in the order -->
+            <ul class="list-group mb-3">
+                <%
+                    for (OrderItem item : order.getOrderItems()) {
+                %>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="<%= item.getProduct().getImageURL() %>" class="img-fluid" alt="<%= item.getProduct().getProductName() %>">
+                            </div>
+                            <div class="col-md-6">
+                                <h5><%= item.getProduct().getProductName() %></h5>
+                                <p><%= item.getProduct().getDescription() %></p>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Quantity: <%= item.getQuantity() %></p>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Price: ₹<%= item.getProduct().getPrice() %></p>
+                            </div>
+                        </div>
+                    </li>
+                <%
+                    }
+                %>
+            </ul>
+
+            <div class="order-summary">
+                Status: <%= order.getStatus() %> 
+                <a href="trackOrder?orderID=<%= order.getOrderID() %>" class="btn btn-track btn-sm float-right">Track Order</a>
+            </div>
+        </div>
+    <%
+            }
+        } else {
+    %>
+        <div class="alert alert-info">You have no orders yet.</div>
+    <%
+        }
+    %>
+
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

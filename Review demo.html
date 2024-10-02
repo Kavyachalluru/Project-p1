@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Reviews</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background styling */
+        .review-bg {
+            background-image: url('https://miro.medium.com/v2/resize:fit:1400/0*1AbQPQa8RAUt4J6E');
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Review container styling */
+        .review-container {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Animation effect */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Star rating styles */
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .rating-label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .star {
+            font-size: 30px;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star.selected {
+            color: #ffcc00;
+        }
+
+        /* Style for the rating description */
+        .rating-description {
+            position: absolute;
+            bottom: -10px;
+            font-size: 14px;
+            color: #ffcc00;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Submit button */
+        .submit-btn {
+            background-color: #ff6600;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #ff3300;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid #ccc;
+        }
+
+        /* Footer styling */
+        footer {
+            position: block;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        footer span {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="review-bg">
+    <div class="review-container">
+        <h2>Leave a Review</h2>
+        <form action="submitReview" method="post">
+            <div class="form-group">
+                <label for="productSelect">Select Product</label>
+                <select class="form-control" id="productSelect" name="productName" required>
+                    <option value="" disabled selected>Select a product</option>
+                    <option value="Product 1">Product 1</option>
+                    <option value="Product 2">Product 2</option>
+                    <option value="Product 3">Product 3</option>
+                    <!-- Add more products as needed -->
+                </select>
+            </div>
+            <div class="star-rating">
+                <span class="rating-label">Rating:</span>
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+                <div class="rating-description" id="ratingDescription">Excellent</div>
+            </div>
+            <input type="hidden" id="rating" name="rating" value="0" required>
+            <div class="form-group">
+                <label for="review">Your Review</label>
+                <textarea class="form-control" id="review" name="review" rows="4" placeholder="Write your review" required></textarea>
+            </div>
+            <button type="submit" class="btn submit-btn">Submit Review</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <span>Email: support@example.com</span>
+    <span>Phone: +1 123 456 7890</span>
+    <span>&copy; 2024 RevShop</span>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rating');
+    const ratingDescription = document.getElementById('ratingDescription');
+    let selectedRating = null; // Track the selected rating
+
+    stars.forEach(star => {
+        star.addEventListener('mouseenter', () => {
+            const rating = star.getAttribute('data-value');
+            if (!selectedRating) { // Only change on hover if no rating is selected
+                updateRatingDescription(rating);
+            }
+        });
+
+        star.addEventListener('click', () => {
+            const rating = star.getAttribute('data-value');
+            selectedRating = rating; // Store the selected rating
+            ratingInput.value = rating; // Set hidden input value
+            stars.forEach(s => s.classList.remove('selected')); // Remove selected class from all stars
+            for (let i = 0; i < rating; i++) {
+                stars[i].classList.add('selected');
+            }
+            updateRatingDescription(rating); // Update on click to persist
+        });
+    });
+
+    function updateRatingDescription(rating) {
+        switch (rating) {
+            case '1':
+                ratingDescription.textContent = 'Poor';
+                break;
+            case '2':
+                ratingDescription.textContent = 'Not Bad';
+                break;
+            case '3':
+                ratingDescription.textContent = 'Average';
+                break;
+            case '4':
+                ratingDescription.textContent = 'Good';
+                break;
+            case '5':
+                ratingDescription.textContent = 'Excellent';
+                break;
+        }
+    }
+</script>
+
+</body>
+</html>
