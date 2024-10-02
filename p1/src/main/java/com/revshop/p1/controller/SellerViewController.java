@@ -16,6 +16,7 @@ public class SellerViewController {
 	
 		@Autowired
 		private SellerService service;
+		
 		@GetMapping("/register")
 		public String showForm(Model model) {
 			model.addAttribute("sellers", new Seller());
