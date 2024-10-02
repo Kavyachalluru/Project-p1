@@ -26,7 +26,6 @@ public class Product {
 	private String size;
 	private String description;
 	private String image_url;
-	private String description;
 	private String discountPercentage;
 	
 	public String getDiscountPercentage() {
@@ -147,13 +146,6 @@ public class Product {
 		this.size = size;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public String getImage_url() {
 		return image_url;

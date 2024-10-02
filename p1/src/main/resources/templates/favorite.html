@@ -162,7 +162,7 @@
                 <li class="nav-item mx-5"><a class="nav-link" href="About.html">Your Orders</a></li>
                 <li class="nav-item mx-5"><a class="nav-link" href="/revshop/favorite">Wishlist</a></li>
                 <li class="nav-item mx-5"><a class="nav-link" href="/revshop/login">LogOut</a></li>
-                <li class="nav-item mx-5"><a class="nav-link" href="Cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                <li class="nav-item mx-5"><a class="nav-link" href="/revshop/cart"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
                   </svg></a></li>
             </ul>
@@ -187,7 +187,13 @@
                             <span class="product-discount" th:text="'₹' + ${favorite.product.discountPrice}">₹999.00</span>
                             <span class="badge badge-danger ml-2" th:if="${favorite.product.discountPercentage > 0}" th:text="${favorite.product.discountPercentage} + '% OFF'">33% OFF</span>
                         </p>
-                        <a th:href="@{/cart/add/{productId}(productId=${favorite.product.id})}" class="btn btn-outline-secondary">Add to Cart</a>
+                        <form th:action="@{/revshop/cart/add}" method="post"
+									style="display: inline;">
+									<input type="hidden" name="productId" th:value="${favorite.product.id}" />
+									<input type="hidden" id="quantity" name="quantity" value="1" min="1" required style="width: 60px;">
+									<button type="submit" class="btn btn-outline-secondary">Add
+										to Cart</button>
+								</form>
                         <span class="btn-remove float-right">
 							<!-- Link to remove the product -->
 <a href="#" class="text-danger" onclick="event.preventDefault(); document.getElementById('remove-form-${favorite.product.id}').submit();">
