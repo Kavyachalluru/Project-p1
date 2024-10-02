@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.revshop.p1.entity.Buyer;
 import com.revshop.p1.entity.Product;
 import com.revshop.p1.entity.Seller;
 import com.revshop.p1.service.ProductService;
@@ -83,5 +84,20 @@ public class ProductController {
         }
         return "error/403"; 
     }
+    @GetMapping("/displayProducts")
+    public String showProducts(Model model,HttpSession session) {
+    	 Buyer buyer=(Buyer)session.getAttribute("loggedInUser");
+    	 System.out.println(buyer.getBuyer_id());
+        List<Product> products = productService.getAllProducts();
+        model.addAttribute("products", products);
+        return "showProducts";  
+    }
+    @GetMapping("/product/{id}")
+    public String getProductById(@PathVariable("id") Long id, Model model) {
+        Product product = productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "productDetails";  // This view shows individual product details
+    }
+
+    }
 	
-}

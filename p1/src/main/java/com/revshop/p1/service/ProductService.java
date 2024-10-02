@@ -40,5 +40,11 @@ public class ProductService {
     public void deleteProductById(Long productId) {
     	product_repo.deleteById(productId);
     }
+    public List<Product> getAllProducts(){
+    	return product_repo.findAll();
+    }
+    public Product getProductById(Long id) {
+        return product_repo.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+    }
 	
 }

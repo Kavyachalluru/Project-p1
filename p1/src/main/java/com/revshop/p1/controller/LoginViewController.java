@@ -37,7 +37,7 @@ public class LoginViewController {
 			Buyer buyer = buyerService.getBuyerByEmail(email); // Get the buyer details
             session.setAttribute("loggedInUser", buyer); // Store buyer in session
             session.setAttribute("userType", "buyer"); // Optional: Store user type for role-based handling
-            return "redirect:/buyer/dashboard"; // Redirect to buyer dashboard
+            return "redirect:/revshop/displayProducts";
 
 		}
 		else if(sellerservice.validateSeller(email, password)){
