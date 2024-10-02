@@ -22,7 +22,25 @@ public class Product {
 	private int threshold;
 	private String category;
 	private String image_url;
+	private String description;
+	private String discountPercentage;
 	
+	public String getDiscountPercentage() {
+		return discountPercentage;
+	}
+
+	public void setDiscountPercentage(String discountPercentage) {
+		this.discountPercentage = discountPercentage;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "seller_id", nullable = false)
 	private Seller seller;
