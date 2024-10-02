@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Place Order</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        h1 {
+            text-align: center;
+            margin-top: 60px;
+        }
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px;
+            padding-top: 70px;
+        }
+        .product-info {
+            width: 60%;
+        }
+        .product-info h5, .product-info p, textarea, .product-info select {
+            margin-bottom: 30px;
+        }
+        .product-image {
+            width: 25%;
+        }
+        .product-image img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .order-button {
+            text-align: right;
+        }
+        .qr-code, .upi-options, .card-details {
+            display: none; /* Hidden by default */
+            margin-top: 10px;
+        }
+        .card-details input {
+            margin-bottom: 10px;
+        }
+        .nav-link {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: blue; 
+            font-weight: normal;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2.5px;
+            display: block;
+            margin-top: 5px;
+            right: 0;
+            background: #ff0000; 
+            transition: width 0.3s ease;
+            -webkit-transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 45%;
+            left: 0;
+            right: auto;
+        }
+        .nav-link.active::after {
+            width: 100%;
+            left: 0;
+            right: auto;
+        }
+        .nav-link.active {
+            color: #561ad7;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: rgb(0, 0, 0) !important;
+            font-size: 17px;
+            font-weight: bold;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+        }
+        .navbar {
+            padding-top: 0.3rem;
+            padding-bottom: 0.3rem;
+            background-color: #b7e0d6;
+        }
+        .navbar-brand img {
+            width: 160px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #a39595;">
+        <a class="navbar-brand" href="Landing main.html">
+            <img src="https://i.postimg.cc/T2nXh20S/REVSHOP-main2.png" alt="RevShop">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-5"><a class="nav-link" th:href="@{/Shop}">Home</a></li>
+                <li class="nav-item mx-5"><a class="nav-link" th:href="@{/Cart}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                  </svg></a></li>
+                <li class="nav-item mx-5"><a class="nav-link" th:href="@{/Thank-You}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Place Your Order</h1>
+
+        <div class="order-details">
+            <!-- Left side: Product Info -->
+            <div class="product-info">
+                <h5>Product Name: <span th:text="${product.productName}"></span></h5>
+                <h5>Product Price: <span th:text="${product.price}"></span></h5>
+
+                <!-- Shipping Address -->
+                <h5>Shipping Address:</h5>
+                <textarea class="form-control" rows="4" placeholder="Enter your shipping address..." th:text="${user.shippingAddress}" th:field="*{shippingAddress}"></textarea>
+
+                <!-- Payment Method -->
+                <h5>Payment Method:</h5>
+                <select class="form-control" name="paymentMethod" id="paymentMethod" th:field="*{paymentMethod}">
+                    <option value="" disabled selected>Select Payment Method</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="QR Code">QR Code</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Cash on Delivery">Cash on Delivery</option>
+                </select>
+
+                <!-- Card Details (for Credit Card, Debit Card) -->
+                <div class="card-details" id="cardDetails">
+                    <h5>Enter Card Details:</h5>
+                    <input type="text" class="form-control" name="cardNumber" placeholder="Card Number" th:field="*{cardNumber}" />
+                    <input type="text" class="form-control" name="expiryDate" placeholder="Expiry Date (MM/YY)" th:field="*{expiryDate}" />
+                    <input type="text" class="form-control" name="cvv" placeholder="CVV" th:field="*{cvv}" />
+                </div>
+
+                <!-- QR Code Display -->
+                <div class="qr-code" id="qrCode">
+                    <h5>Scan this QR Code for Payment:</h5>
+                    <img src="https://www.emoderationskills.com/wp-content/uploads/2010/08/QR1.jpg" alt="QR Code" width="200">
+                </div>
+
+                <!-- UPI Options -->
+                <div class="upi-options" id="upiOptions">
+                    <h5>Select UPI Payment Method:</h5>
+                    <select class="form-control" name="upiMethod" th:field="*{upiMethod}">
+                        <option value="" disabled selected>Select UPI</option>
+                        <option value="Paytm">Paytm</option>
+                        <option value="PhonePe">PhonePe</option>
+                        <option value="GPay">GPay</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Right side: Product Image -->
+            <div class="product-image">
+                <img th:src="@{${product.imageURL}}" alt="Product Image" />
+            </div>
+        </div>
+
+        <!-- Order Button -->
+        <div class="order-button mt-4">
+            <form action="#" th:action="@{/confirm-order}" method="post" th:object="${order}">
+                <input type="hidden" th:field="*{productID}" th:value="${product.productID}" />
+                <input type="hidden" th:field="*{userID}" th:value="${user.userID}" />
+                <input type="hidden" name="shippingAddress" th:field="*{shippingAddress}" />
+                <input type="hidden" name="paymentMethod" th:field="*{paymentMethod}" />
+                <input type="hidden" name="upiMethod" th:field="*{upiMethod}" />
+                <input type="hidden" th:field="*{productName}" th:value="${product.productName}" />
+                <button type="submit" class="btn btn-success">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="text-center text-white" style="background-color: #a39595; padding: 1rem; margin-top: 5rem;">
+        <p>&copy; 2024 RevShop. All Rights Reserved.</p>
+        <p><b>Support:</b> revshop.ecommerce@gmail.com</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Toggle visibility of payment details based on the selected payment method
+        document.getElementById('paymentMethod').addEventListener('change', function() {
+            var selectedMethod = this.value;
+            document.getElementById('cardDetails').style.display = (selectedMethod === 'Credit Card' || selectedMethod === 'Debit Card') ? 'block' : 'none';
+            document.getElementById('qrCode').style.display = (selectedMethod === 'QR Code') ? 'block' : 'none';
+            document.getElementById('upiOptions').style.display = (selectedMethod === 'UPI') ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>
