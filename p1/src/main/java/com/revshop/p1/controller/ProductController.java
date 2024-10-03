@@ -87,7 +87,7 @@ public class ProductController {
     @GetMapping("/displayProducts")
     public String showProducts(Model model,HttpSession session) {
     	 Buyer buyer=(Buyer)session.getAttribute("loggedInUser");
-    	 System.out.println(buyer.getBuyer_id());
+    	 //System.out.println(buyer.getBuyer_id());
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         return "showProducts";  
@@ -98,6 +98,56 @@ public class ProductController {
         model.addAttribute("product", product);
         return "productDetails";  // This view shows individual product details
     }
+    
+ // search by category
+    @GetMapping("/search")
+    public String searchProductsByCategoryForBuyer(@RequestParam("category") String category, Model model) {
+        List<Product> products;
 
+        // If no category is selected, show all products
+        if (category == null || category.isEmpty()) {
+            products = productService.getAllProducts(); // Method to fetch all products
+        } else {
+            // Otherwise, filter products by category
+            products = productService.getProductsByCategory(category);
+        }
+
+        model.addAttribute("products", products);
+        return "showProducts"; // Return buyer dashboard template with products
     }
+    
+    //search products by name
+    @GetMapping("/searchByNameOrBrand")
+    public String searchProductsByNameorBrand(@RequestParam(value ="query", required = false) String query, Model model) {
+        List<Product> products;
+
+        // If no name is provided, show all products
+        if (query == null || query.isEmpty()) {
+            products = productService.getAllProducts(); // Fetch all products if no search term
+        } else {
+            // Search products by name using the service method
+            products = productService.getProductsByNameOrBrand(query);
+        }
+
+        model.addAttribute("products", products);
+        return "showProducts"; // Return the view with the filtered products
+    }
+    
+  //filter by price
+    @GetMapping("/filterByDiscountPrice")
+    public String filterProductsByDiscountPrice(@RequestParam("mindiscountPrice") double mindiscountPrice, @RequestParam("maxdiscountPrice") double maxdiscountPrice,Model model) {
+    	
+    	List<Product> products = productService.getProductsByDiscountPriceRange(mindiscountPrice, maxdiscountPrice);
+    	model.addAttribute("products", products);
+    	return "showProducts";
+    }
+    
+}
+
+
+    
+    
+
+    
+    
 	

@@ -166,6 +166,10 @@
             transition: color 0.3s ease; /* Smooth transition for color change */
             
         }
+        .col-auto{
+        justify-content:center;
+        }
+        
     </style>
 </head>
 <body>
@@ -196,43 +200,57 @@
             <div class="col-md-3">
                 <div class="filter-section">
                     <h5 class="filter-title">Filter by Category</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item"><a href="#">Electronics</a></li>
-                        <li class="list-group-item"><a href="#">Fashion</a></li>
-                        <li class="list-group-item"><a href="#">Home & Living</a></li>
-                        <li class="list-group-item"><a href="#">Sports</a></li>
-                        <li class="list-group-item"><a href="#">Books</a></li>
+                     <ul class="list-group">
+                        <li class="list-group-item"><a href="/revshop/search?category=Electronics">Electronics</a></li>
+                        <li class="list-group-item"><a href="/revshop/search?category=Fashion">Fashion</a></li>
+                        <li class="list-group-item"><a href="/revshop/search?category=HomeAplliances">Home & Living</a></li>
+                        <li class="list-group-item"><a href="/revshop/search?category=Sports">Sports</a></li>
+                        <li class="list-group-item"><a href="/revshop/search?category=Clothing">Clothing</a></li>
+                        <li class="list-group-item"><a href="/revshop/search?category=Books">Books</a></li>
+                        <li class="list-group-item"><a href="/revshop/displayProducts">All Products</a></li>
                     </ul>
+                    
                 </div>
                 <div class="filter-section">
                     <h5 class="filter-title">Filter by Price</h5>
-                    <form>
-                        <div class="form-group">
-                            <label for="minPrice">Min Price</label>
-                            <input type="number" class="form-control" id="minPrice" placeholder="₹0">
-                        </div>
-                        <div class="form-group">
-                            <label for="maxPrice">Max Price</label>
-                            <input type="number" class="form-control" id="maxPrice" placeholder="₹10000">
-                        </div>
-                        <button type="submit" class="btn btn-outline-primary btn-block">Apply Filters</button>
-                    </form>
-                </div>
+			<form class="form-inline" action="/revshop/filterByDiscountPrice"
+    method="GET" style="margin: 20px;">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label for="mindiscountPrice" class="col-form-label">Min Price:</label>
+            <input type="number" class="form-control" id="mindiscountPrice" name="mindiscountPrice"
+                placeholder="Min Price" required>
+        </div>
+        <div class="col-auto">
+            <label for="maxdiscountPrice" class="col-form-label">Max Price:</label>
+            <input type="number" class="form-control" id="maxdiscountPrice" name="maxdiscountPrice"
+                placeholder="Max Price" required>
+        </div>
+        <div class="col-12 text-center mt-3">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
+
+
+				</div>
             </div>
 
           
 <div class="col-md-9">
-    <!-- Search Bar -->
-    <form class="form-inline my-2 my-lg-0 ml-3">
-        <div class="input-group" style="max-width: 400px; margin-left: 550px;">
-            <input class="form-control" type="search" placeholder="Search for products" aria-label="Search">
-            <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2">
-                    <i class="fas fa-search"></i>
-                </span>
-            </div>
+    <!-- Search Bar -->    
+    <form class="form-inline my-2 my-lg-0 ml-3" action="/revshop/searchByNameOrBrand" method="GET">
+    <div class="input-group" style="max-width: 400px; margin-left: 550px;">
+        <input class="form-control" type="search" name="query" placeholder="Search for products" aria-label="Search">
+        <div class="input-group-append">
+            <button type="submit" class="input-group-text" id="basic-addon2">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
-    </form>
+    </div>
+</form>
+    
     <h2 class="text-center mb-4">All Products</h2>
     <div class="row">
         <!-- Product Card -->
