@@ -43,15 +43,15 @@ package com.revshop.p1.controller;
 	        return "redirect:/revshop/displayProducts"; 
 	    }
 
-	    @PostMapping("/remove/{productId}")
-	    public String removeFavorite(@PathVariable("productId") Long productId, HttpSession session) {
+	    @PostMapping("/favorite/remove")
+	    public String removeFavorite(@RequestParam Long favoriteId, HttpSession session) {
 	        Buyer buyer = (Buyer) session.getAttribute("loggedInUser");
 	        if (buyer == null) {
 	            return "redirect:/revshop/login"; 
 	        }
-	        System.out.println(productId);
+	        System.out.println(favoriteId);
 
-	        favoriteService.removeFavorite(buyer, productId);
+	        favoriteService.removeFavorite(favoriteId);
 	        return "redirect:/revshop/favorite"; // Redirect to the favorites page
 	    }
 	}
