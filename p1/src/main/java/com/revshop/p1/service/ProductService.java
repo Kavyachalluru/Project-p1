@@ -46,5 +46,21 @@ public class ProductService {
     public Product getProductById(Long id) {
         return product_repo.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
+    
+    // search by category
+    public List<Product> getProductsByCategory(String category) {
+        return product_repo.findByCategory(category);
+    }
+    
+  //search products by name
+    public List<Product> getProductsByNameOrBrand(String query) {
+        return product_repo.findByNameContainingOrBrandContainingIgnoreCase(query,query); 
+    }
+
+    //filter by price
+    public List<Product> getProductsByDiscountPriceRange(double mindiscountPrice, double maxdiscountPrice){
+    	return product_repo.findByDiscountPriceBetween(mindiscountPrice, maxdiscountPrice);
+    }
+
 	
 }

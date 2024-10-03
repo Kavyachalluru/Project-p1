@@ -18,5 +18,13 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	// Update Product By ProductId and SellerId
 	Optional<Product> findByIdAndSellerId(Long id, Long sellerId);
 	
+	// search by category
+	List<Product> findByCategory(String category);
+	
+	//search products by name
+	List<Product> findByNameContainingOrBrandContainingIgnoreCase(String name, String brand);
+	
+	//filter by price
+	List<Product> findByDiscountPriceBetween(double mindiscountPrice, double maxdiscountPrice);
 	
 }
