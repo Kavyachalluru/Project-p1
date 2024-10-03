@@ -148,18 +148,17 @@ body {
 						class="cart-item d-flex flex-column flex-md-row justify-content-between align-items-start">
 						<div class="product-info">
 							<h5>
-								<b th:text="${cart.product.name}">Levis</b> Cotton Collar Neck
-								Shirt
+								<b th:text="${cart.product.name}"></b>
 							</h5>
 							<p class="mb-1">
 								Price: ₹<span class="product-price"
-									th:text="${cart.product.price}">999.00</span>
+									th:text="${cart.product.discountPrice}"></span>
 							</p>
 							<p class="mb-1">
 								Quantity: <input type="number" th:value="${cart.quantity}"
 									min="0" style="width: 60px;"
 									class="form-control quantity-input"
-									th:attr="data-price=${cart.product.price}"
+									th:attr="data-price=${cart.product.discountPrice}"
 									onchange="updateTotalPrice()">
 							</p>
 							<form th:action="@{/revshop/cart/remove}" method="post">
