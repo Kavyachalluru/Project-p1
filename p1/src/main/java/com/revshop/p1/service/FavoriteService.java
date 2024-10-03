@@ -35,13 +35,9 @@ import java.util.List;
 	        }
 	    }
 	   
-	    public void removeFavorite(Buyer buyer, Long productId) {
-	        Product product = productService.getProductById(productId);
-	        Favorite favorite = favoriteRepository.findByBuyerAndProduct(buyer, product);
+	    public void removeFavorite(Long favid) {
+	    	favoriteRepository.deleteById(favid);
 	        
-	        if (favorite != null) {
-	            favoriteRepository.delete(favorite);
-	        }
 	    }
 	}
 

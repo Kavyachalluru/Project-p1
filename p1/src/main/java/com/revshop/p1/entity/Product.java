@@ -146,6 +146,10 @@ public class Product {
 		this.size = size;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 834b178dfc7a5cf4f3d04d4cb27f501550efec05
 	public String getImage_url() {
 		return image_url;
 	}
