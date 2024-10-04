@@ -53,9 +53,13 @@ public class ProductController {
 	
 	
 	// Show form to update the product by ID
-    @GetMapping("/product/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Long id, Model model, HttpSession session) {
+	@GetMapping("/product/update")
+    public String showUpdateForm(@RequestParam("productId") Long id, Model model, HttpSession session) {
         Seller seller = (Seller) session.getAttribute("loggedInUser");
+        if (seller == null) {
+            return "redirect:/login"; // Redirect to login if not logged in
+        }
+        
         Product product = productService.getProductByIdAndSeller(id, seller.getId());
         if (product != null) {
             model.addAttribute("product", product);
@@ -64,14 +68,26 @@ public class ProductController {
         return "error/403"; 
     }
 
-    // Update the product
     @PostMapping("/product/update")
-    public String updateProduct(@ModelAttribute Product product, HttpSession session) {
+    public String updateProduct(@ModelAttribute Product product, @RequestParam("productId") Long id, HttpSession session) {
         Seller seller = (Seller) session.getAttribute("loggedInUser");
-        product.setSeller(seller); 
-        productService.updateProduct(product);
-        return "redirect:/revshop/show";
+        
+        if (seller != null) {
+            product.setId(id); // Ensure the product ID is set
+            product.setSeller(seller);
+            
+            try {
+                productService.updateProduct(product); // Update product in the database
+                return "redirect:/revshop/show"; // Redirect after successful update
+            } catch (Exception e) {
+                e.printStackTrace(); // Log the error for debugging
+                return "error/500"; // Redirect to an error page
+            }
+        }
+        
+        return "error/403"; 
     }
+
     
     // Delete a product by ID
     @GetMapping("/product/delete/{id}")
