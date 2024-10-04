@@ -2,12 +2,15 @@ package com.revshop.p1.entity;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.*;
 
 @Entity
@@ -44,7 +47,18 @@ public class Buyer {
     private String phoneNumber;  // Buyer's contact number
     
     @NotNull
-    private LocalDateTime registrationDate;  // Account creation date
+    private LocalDateTime registrationDate;  
+    // Account creation date
+    @OneToMany(mappedBy="buyer" ,cascade = CascadeType.ALL)
+    private List<Orders> orders;
+
+	public List<Orders> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
 
 	public Long getBuyer_id() {
 		return buyer_id;
