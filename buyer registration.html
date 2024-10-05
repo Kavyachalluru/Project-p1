@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Registration - RevShop</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/Home_Images/buyer_reg.png');
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px; /* Same width as the Seller Registration */
+            background-color: rgba(255, 255, 255, 0);
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-group:last-child {
+            margin-right: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="contact"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #4cae4c;
+        }
+
+        .home-btn {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 17%;
+            margin-bottom: 15px;
+        }
+
+        .home-btn:hover {
+            background-color: #007bffc9;
+        }
+
+        center {
+            margin-top: 15px;
+            color: white;
+        }
+    </style>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById('buyerName').value.trim();
+            if (name === '' || name.length < 3) {
+                alert("Full Name must be at least 3 characters long.");
+                return false;
+            }
+
+            const email = document.getElementById('buyerEmail').value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            const password = document.getElementById('password').value;
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            const contact = document.getElementById('contact').value;
+            const contactPattern = /^[0-9]{10}$/;
+            if (!contactPattern.test(contact)) {
+                alert("Please enter a valid 10-digit contact number.");
+                return false;
+            }
+            const termsCheckbox = document.getElementById('exampleCheck1');
+            if (!termsCheckbox.checked) {
+                alert("You must accept the terms and conditions.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Home Button -->
+        <div class="row">
+            <!-- Home Button aligned to the left -->
+            <div class="col-12 mb-3">
+                <a href="Home.html" class="home-link">
+                    <i class="fas fa-arrow-left"></i> Home
+                </a>
+            </div>
+        </div>
+        <h2>Buyer Registration</h2>
+        
+        <form action="BuyerRegisterServlet" method="POST" onsubmit="return validateForm();">
+            <div class="form-row">
+                <!-- Buyer's Name -->
+                <div class="form-group">
+                    <label for="buyerName">Full Name</label>
+                    <input type="text" id="buyerName" name="buyerName" placeholder="Enter your name" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="buyerEmail">Email</label>
+                    <input type="email" id="buyerEmail" name="buyerEmail" placeholder="Enter your email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Contact Number -->
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="contact" id="contact" name="contact" placeholder="Enter your Contact Number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp Number</label>
+                    <input type="contact" id="whatsapp" name="whatsapp" placeholder="Enter your WhatsApp Number" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter your Address" required></textarea>
+              </div>
+              
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">I agree to the <a href="#">Terms & conditions</a></label>
+              </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Register</button><br>
+
+            <center>Already registered? <a href="Buyer_Login.html">Login</a></center>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

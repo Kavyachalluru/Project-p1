@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RevShop - Favorites">
+    <title>RevShop - Favorites</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        /* Custom CSS */
+        .favorite-card img {
+            height: 250px;
+            object-fit: cover;
+        }
+        .favorite-card {
+            margin-bottom: 30px;
+        }
+        .product-price {
+            color: #561ad7;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .product-discount {
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .original-price {
+            text-decoration: line-through;
+            color: #000000;
+        }
+        .btn-remove {
+            color: #ff0000;
+            cursor: pointer;
+        }
+        .favorite-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #a39595;">
+        <a class="navbar-brand" href="Home.html"><img src="https://i.postimg.cc/T2nXh20S/REVSHOP-main2.png" alt="RevShop"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-5"><a class="nav-link" href="Home.html">Home</a></li>
+                <li class="nav-item mx-5"><a class="nav-link" href="Shop.html">Shop</a></li>
+                <li class="nav-item mx-5"><a class="nav-link" href="About.html">About</a></li>
+                <li class="nav-item mx-5"><a class="nav-link" href="Seller_Login.html">Sell on RevShop</a></li>
+                <li class="nav-item mx-5"><a class="nav-link" href="Buyer_Login.html">Login</a></li>
+                <li class="nav-item mx-5"><a class="nav-link" href="Cart.html"><i class="fas fa-shopping-cart"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Favorites Section -->
+    <section class="container mt-5 favorite-section">
+        <h2>Your Favorites</h2>
+        <div class="row">
+            <!-- Favorite Item -->
+            <div class="col-md-4">
+                <div class="card favorite-card">
+                    <img src="https://5.imimg.com/data5/YQ/PP/MY-45906267/levis-shirt-for-men.jpg" class="card-img-top" alt="Shirt">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Levis</b><br>Cotton Collar Neck Shirt</h5>
+                        <p class="product-price">
+                            <span class="original-price">₹1499.00</span> 
+                            <span class="product-discount">₹999.00</span>
+                            <span class="badge badge-danger ml-2">33% OFF</span>
+                        </p>
+                        <a href="Cart.html" class="btn btn-outline-secondary">Add to Cart</a>
+                        <span class="btn-remove float-right"><i class="fas fa-trash-alt"></i> Remove</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorite Item -->
+            <div class="col-md-4">
+                <div class="card favorite-card">
+                    <img src="https://assets.ajio.com/medias/sys_master/root/20230812/zWZd/64d74b9ceebac147fcc4ac1e/-473Wx593H-469528871-black-MODEL.jpg" class="card-img-top" alt="Track Pants">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Tommy Hilfiger</b><br>Black Track Pants for Men</h5>
+                        <p class="product-price">
+                            <span class="original-price">₹1999.00</span> 
+                            <span class="product-discount">₹1,519.24</span>
+                            <span class="badge badge-danger ml-2">24% OFF</span>
+                        </p>
+                        <a href="Cart.html" class="btn btn-outline-secondary">Add to Cart</a>
+                        <span class="btn-remove float-right"><i class="fas fa-trash-alt"></i> Remove</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorite Item -->
+            <div class="col-md-4">
+                <div class="card favorite-card">
+                    <img src="https://imgeng.jagran.com/images/2023/may/Best%20Adidas%20Original%20Shoes%20For%20Men1682951431717.jpg" class="card-img-top" alt="Shoes">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Adidas</b><br>Original Shoes For Men</h5>
+                        <p class="product-price">
+                            <span class="original-price">₹2499.00</span> 
+                            <span class="product-discount">₹1,374.45</span>
+                            <span class="badge badge-danger ml-2">45% OFF</span>
+                        </p>
+                        <a href="Cart.html" class="btn btn-outline-secondary">Add to Cart</a>
+                        <span class="btn-remove float-right"><i class="fas fa-trash-alt"></i> Remove</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-5 p-4 text-center" style="background-color: #f8f9fa;">
+        <p>&copy; 2024 RevShop. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap and JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
