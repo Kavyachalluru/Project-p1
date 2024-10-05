@@ -14,10 +14,12 @@ import java.util.List;
 	public interface OrderRepository extends JpaRepository<Orders, Long> {
 	    
 	    // Find all orders by a specific buyer ID
-//	    List<Orders> findByBuyer(Buyer buyer);
-//	    List<Orders> findByBuyer_Id(Long buyer_id);
-	@Query("SELECT o FROM Orders o WHERE o.buyer.id = :buyerId")
-    List<Orders> findByBuyerId(@Param("buyerId") Long buyerId);
+//   List<Orders> findByBuyer(Buyer buyer);
+//    List<Orders> findByBuyer_Id(Long buyer_id);
+//	@Query("SELECT o FROM Orders o JOIN FETCH o.orderItems oi JOIN FETCH oi.product WHERE o.buyer.id = :buyerId")
+//	List<Orders> findByBuyerIdWithItems(@Param("buyerId") Long buyerId);
+	 @Query("SELECT oi FROM OrderItems oi JOIN oi.order o WHERE o.buyer.buyer_id = :buyerId")
+	    List<OrderItems> findAllOrderItemsByBuyerId(@Param("buyerId") Long buyerId);
 	   
 	    
 	   
