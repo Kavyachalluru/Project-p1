@@ -135,6 +135,14 @@
 <body>
 
     <div class="container">
+    	<div class="row">
+            <div class="col-12 mb-3">
+                <a th:href="@{/revshop/home}" class="home-link">
+                    <i class="fas fa-arrow-left"></i> Home
+                </a>
+            </div>
+        </div>
+    	
         <h2>Login</h2>
         <form  th:action="@{/revshop/login}" method="POST">
             <div class="form-group">
@@ -150,8 +158,8 @@
             <button type="submit" class="btn">Login</button>
 
             <div class="links">
-                <p>Forgot <a href="/password">Password?</a></p>
-                <p>Don't have an account? <a href="/register">Register</a></p>
+                <p>Forgot <a href="/revshop/forgotpassword">Password?</a></p>
+                <p>Don't have an account? Register as <a th:href="@{/revshop/register}">Seller</a>/<a th:href="@{/revshop/buyerRegister}">Buyer</a></p>
             </div>
         </form>
     </div>

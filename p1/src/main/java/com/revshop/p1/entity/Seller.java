@@ -1,9 +1,13 @@
 package com.revshop.p1.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 @Entity
 @Table(name="sellers")
@@ -11,16 +15,27 @@ public class Seller {
 	
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private int id;
+		private Long id;
 		private String name;
 		private String email;
 		private String password;
 		private String businessName;
 		private String PhoneNumber;
-		public int getId() {
+		
+		@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+		private List<Product> products;
+		
+		public List<Product> getProducts() {
+			return products;
+		}
+		public void setProducts(List<Product> products) {
+			this.products = products;
+		}
+		
+		public Long getId() {
 			return id;
 		}
-		public void setId(int id) {
+		public void setId(Long id) {
 			this.id = id;
 		}
 		public String getName() {

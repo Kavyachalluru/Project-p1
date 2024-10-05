@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Order Form</h2>
+    <form th:action="@{/revshop/addorders}" method="post" th:object="${order}">
+		
+        
+        <div class="form-group">
+            <label for="shippingAddress">Shipping Address:</label>
+            <textarea class="form-control" id="shippingAddress" th:field="*{shippingAddress}" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="paymentMethod">Payment Method:</label>
+            <select class="form-control" id="paymentMethod" th:field="*{paymentMethod}">
+                <option value="">--Select a payment method--</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="PayPal">PayPal</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="upiMethodContainer" style="display:none;">
+            <label for="upiMethod">UPI ID:</label>
+            <input type="text" class="form-control" id="upiMethod" th:field="*{upiMethod}">
+        </div>
+        
+        <div class="form-group">
+            <label for="totalPrice">Total Price (in INR):</label>
+            <input type="number" class="form-control" id="totalPrice" th:field="*{totalPrice}" required step="0.01" min="0" readonly>
+        </div>
+        
+    <button type="submit" class="btn btn-primary">Buy Now</button>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+   
+</script>
+</body>
+</html>

@@ -25,4 +25,8 @@ public class BuyerService {
         return buyer != null && buyer.getPassword().equals(password);
     }
 	
+	public Buyer getBuyerByEmail(String email) {
+		return buyer_repo.findByEmail(email).get();
+	}
+	
 }

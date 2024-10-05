@@ -16,6 +16,8 @@ import com.revshop.p1.service.BuyerService;
 import com.revshop.p1.service.SellerService;
 import com.revshop.p1.service.loginService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/revshop")
 public class LoginViewController {
@@ -29,14 +31,20 @@ public class LoginViewController {
 		return "login";
 	}
 	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password,Model model) {
+	public String login(@RequestParam String email, @RequestParam String password,Model model,HttpSession session) {
 		if(buyerService.validateBuyer(email, password)) {
 			//model.addAttribute("message","loginsuccessful as buyer");
-			return "sample";
+			Buyer buyer = buyerService.getBuyerByEmail(email); // Get the buyer details
+            session.setAttribute("loggedInUser", buyer); // Store buyer in session
+            session.setAttribute("userType", "buyer"); // Optional: Store user type for role-based handling
+            return "redirect:/revshop/displayProducts";
+
 		}
 		else if(sellerservice.validateSeller(email, password)){
-			model.addAttribute("message","loginsuccessful as seller");
-			return "sample";
+			Seller seller = sellerservice.getSellerByEmail(email); // Get the seller details
+            session.setAttribute("loggedInUser", seller); // Store seller in session
+            session.setAttribute("userType", "seller"); // Optional: Store user type for role-based handling
+            return "redirect:/revshop/show"; // Redirect to seller dashboard
 			}
 	else {
 		model.addAttribute("message","invalid");

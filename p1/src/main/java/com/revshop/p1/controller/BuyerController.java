@@ -28,13 +28,13 @@ public class BuyerController {
 	@PostMapping("/buyerRegister")
 	public String registerBuyer(Model model, @ModelAttribute Buyer buyer) {
 		buyerService.registerUser(buyer);
-		return "revHome";
+		return "redirect:/revshop/login";
 	}
 	
 	@GetMapping("/buyerLogin")
 	public String showLoginForm(Model model) {
 		model.addAttribute("buyers", new Buyer());
-		return "revHome";
+		return "showProducts";
 	}
 	
 	
