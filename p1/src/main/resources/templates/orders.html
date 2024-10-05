@@ -32,7 +32,7 @@
         
         <div class="form-group">
             <label for="paymentMethod">Payment Method:</label>
-            <select class="form-control" id="paymentMethod" th:field="*{paymentMethod}" required onchange="toggleUpiMethod()">
+            <select class="form-control" id="paymentMethod" th:field="*{paymentMethod}">
                 <option value="">--Select a payment method--</option>
                 <option value="Credit Card">Credit Card</option>
                 <option value="PayPal">PayPal</option>
@@ -53,20 +53,11 @@
         
     <button type="submit" class="btn btn-primary">Buy Now</button>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    function toggleUpiMethod() {
-        const paymentMethod = document.getElementById('paymentMethod').value;
-        const upiMethodContainer = document.getElementById('upiMethodContainer');
-        if (paymentMethod === 'UPI') {
-            upiMethodContainer.style.display = 'block';
-        } else {
-            upiMethodContainer.style.display = 'none';
-        }
-    }
+   
 </script>
 </body>
 </html>

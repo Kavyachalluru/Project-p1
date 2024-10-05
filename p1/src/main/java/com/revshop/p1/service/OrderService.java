@@ -27,10 +27,22 @@ import java.util.List;
 	        return orderRepository.save(order);
 	    }
 
-	    // Method to get all orders by buyer ID
-	    public List<Orders> getOrdersByBuyer(Long buyerId) {
-	        return orderRepository.findByBuyerId(buyerId);
-	    }
+	    
+//	    public List<Orders> getOrdersByBuyer(Long buyerId) {
+//	        List<Orders> orders = orderRepository.findByBuyerIdWithItems(buyerId);
+//
+//	        // Ensure that orderItems are fetched if using LAZY loading
+//	        for (Orders order : orders) {
+//	            order.getOrderItems();  // Forces initialization of orderItems
+//	        }
+//
+//	        return orders;
+//	    }
+	public List<OrderItems> getOrderItemsByBuyerId(Long buyerId) {
+        return orderRepository.findAllOrderItemsByBuyerId(buyerId);
+    }
+
+	    
 
 	    // Method to get an order by its ID
 	    
@@ -42,9 +54,7 @@ import java.util.List;
 	            throw new RuntimeException("Order not found with ID: " + orderId);
 	        }
 	    }
-	    public List<OrderItems> getOrderItemsByBuyer(Long buyer) {
-	        return orderitemsrepository.findByOrder_Buyer_Id(buyer);
-	    }
+	   
 	}
 
 

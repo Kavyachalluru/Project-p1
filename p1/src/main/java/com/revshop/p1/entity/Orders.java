@@ -20,7 +20,7 @@ public class Orders {
 	    @Column
 	    private String upiMethod; // Optional, only applicable if UPI is chosen
 
-	    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	    private List<OrderItems> orderItems;
 
 	    // Constructors, getters, setters
