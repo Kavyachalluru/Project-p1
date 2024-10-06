@@ -22,11 +22,7 @@ public class CartService {
         return cartRepository.findByBuyer(buyer);
     }
 
-//    // Add a new item to the cart
-//    public void addToCart(Buyer buyer,Long productId) {
-//    	Product product=productService.getProductById(productId);
-//        cartRepository.findByBuyerAndProduct(buyer,product);
-//    }
+
     public void addToCart(Buyer buyer, Long productId) {
         // Fetch the product by its ID
         Product product = productService.getProductById(productId);
@@ -57,5 +53,10 @@ public class CartService {
     // Update the cart item (e.g., change quantity)
     public void updateCartItem(Cart cart) {
         cartRepository.save(cart);
+    }
+    public double calculateTotalPrice(List<Cart> cartItems) {
+        return cartItems.stream()
+                .mapToDouble(item -> item.getQuantity() * item.getProduct().getPrice())
+                .sum();
     }
 }

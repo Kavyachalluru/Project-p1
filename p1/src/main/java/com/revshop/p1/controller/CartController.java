@@ -20,18 +20,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    // Get all cart items for a buyer
     @GetMapping("/cart")
-//    public String getCartItems(HttpSession session, Model model) {
-//    	Buyer buyer=(Buyer)session.getAttribute("loggedInUser");
-//    	if(buyer==null) {
-//    		return "redirect:/revshop/login";
-//    	}
-//    	List<Cart>cart=cartService.getCartItemsByBuyer(buyer);
-//    	model.addAttribute("cart", cart);
-//    	model.addAttribute("price", cart);
-//    	return "cart";	
-//    	}
     public String getCartItems(HttpSession session, Model model) {
         Buyer buyer = (Buyer) session.getAttribute("loggedInUser");
         if (buyer == null) {
