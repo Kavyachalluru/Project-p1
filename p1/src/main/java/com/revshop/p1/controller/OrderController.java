@@ -31,7 +31,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private ProductService productService;
+    private ProductService productService;;
     
     @Autowired
     private OrderItemsService ois;
