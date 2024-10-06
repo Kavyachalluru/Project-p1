@@ -17,8 +17,7 @@ public class Orders {
 
 	    private String paymentMethod;
 
-	    @Column
-	    private String upiMethod; // Optional, only applicable if UPI is chosen
+	    // Optional, only applicable if UPI is chosen
 
 	    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	    private List<OrderItems> orderItems;
@@ -67,14 +66,7 @@ public class Orders {
 			this.paymentMethod = paymentMethod;
 		}
 
-		public String getUpiMethod() {
-			return upiMethod;
-		}
-
-		public void setUpiMethod(String upiMethod) {
-			this.upiMethod = upiMethod;
-		}
-
+		
 		public List<OrderItems> getOrderItems() {
 			return orderItems;
 		}
