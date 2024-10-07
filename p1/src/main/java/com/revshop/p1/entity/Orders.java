@@ -22,7 +22,7 @@ public class Orders {
 
 	    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	    private List<OrderItems> orderItems;
-
+	    
 	    // Constructors, getters, setters
 	    public Orders() {}
 

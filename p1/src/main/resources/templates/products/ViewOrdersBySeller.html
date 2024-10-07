@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+	 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
+    <title>Orders for Seller</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -111,6 +111,10 @@
             margin-top: 20px;
             color: #333;
         }
+        
+        tr td ul li{
+        	list-style-type : none;
+        }
 
         .container {
             padding: 20px;
@@ -118,16 +122,18 @@
 
         /* Image styling */
         #prod-img img {
-            width: 100px; /* Adjust the size */
+            width: 100px; 
             height: 100px;
             object-fit: cover;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
     </style>
+    
 </head>
 <body>
-    <!-- Header / Navbar -->
+
+	 <!-- Header / Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <a class="navbar-brand" href="Home.html">
             <img src="https://i.postimg.cc/T2nXh20S/REVSHOP-main2.png" alt="RevShop Logo">
@@ -146,47 +152,36 @@
         </div>
     </nav>
 
-    <!-- Content Section -->
-    <div class="container">
-        <h3>View Products</h3>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Brand</th>
-                    <th>Price</th>
-                    <th>Discount Price</th>
-                    <th>Quantity</th>
-                    <th>Category</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.id}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.brand}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.discountPrice}"></td>
-                    <td th:text="${product.quantity}"></td>
-                    <td th:text="${product.category}"></td>
-                    <td id="prod-img"><img th:src="${product.image_url}" alt="Product Image"></td>
-                    <td>
-                        <a th:href="@{/revshop/product/update(productId=${product.id})}">Edit</a>
-/ 
-                        <a th:href="@{/revshop/product/delete/{id}(id=${product.id})}" 
-                           onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <h3>Orders for Your Products</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Buyer Name</th>
+            
+                <th>Products</th>
+                <th>Quantity</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.buyer.firstName}"></td>
+                
+                <td>
+                    <ul>
+                        <li th:each="item : ${order.orderItems}" th:text="${item.product.name}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li th:each="item : ${order.orderItems}" th:text="${item.quantity}"></li>
+                    </ul>
+                </td>
+               	<td th:text="${order.shippingAddress}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
