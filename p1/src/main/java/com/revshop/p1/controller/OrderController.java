@@ -5,6 +5,7 @@ import com.revshop.p1.entity.Product;
 import com.revshop.p1.entity.Seller;
 import com.revshop.p1.entity.Buyer;
 import com.revshop.p1.entity.OrderItems;
+import com.revshop.p1.service.EmailService;
 import com.revshop.p1.service.OrderItemsService;
 import com.revshop.p1.service.OrderService;
 import com.revshop.p1.service.ProductService;
@@ -33,10 +34,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private ProductService productService;
+    private ProductService productService;;
     
     @Autowired
     private OrderItemsService ois;
+    @Autowired
+    private EmailService emailService;
     
 
     @ModelAttribute("order")
@@ -75,7 +78,6 @@ public class OrderController {
     		        @RequestParam Double totalPrice,
     		        @RequestParam String shippingAddress,
     		        @RequestParam String paymentMethod,
-    		        @RequestParam String upiMethod,
     		        HttpSession session, // Inject HttpSession to access session attributes
     		        Model model) {
 
@@ -92,7 +94,7 @@ public class OrderController {
     		    order.setTotalPrice(totalPrice);
     		    order.setShippingAddress(shippingAddress);
     		    order.setPaymentMethod(paymentMethod);
-    		    order.setUpiMethod(upiMethod);
+    		   // order.setUpiMethod(upiMethod);
     		    order.setBuyer(buyer); // Set the buyerId in the order
     		    OrderItems orderitems=new OrderItems();
     		    orderitems.setOrder(order);
@@ -102,6 +104,15 @@ public class OrderController {
     		    orderitems.setQuantity(1);
     		    // Save the order to the database
     		    orderService.createOrder(order);
+    		    String buyerEmail = order.getBuyer().getEmail();
+    	        String subject = "Order Confirmation";
+    	        String message = "Dear " + order.getBuyer().getFirstName()+ ",\n\n"
+    	                       + "Thank you for your order! Your order ID is " + order.getId()
+    	                       + ". We'll notify you once your order is shipped.\n\n"
+    	                       + "Best regards,\nRevShop Team";
+
+    	        emailService.sendOrderConfirmationEmail(buyerEmail, subject, message);
+
     		    List<OrderItems> orderItemsList = new ArrayList<>();
     		    orderItemsList.add(orderitems);
     		    System.out.println(orderItemsList);
@@ -114,32 +125,6 @@ public class OrderController {
     		    return "redirect:/revshop/displayProducts"; // Redirect to display products
     		}
     
-
-//    @GetMapping("/orderitems")
-//    public String getOrderItems(HttpSession session, Model model) {
-//        Buyer buyer = (Buyer) session.getAttribute("loggedInUser");
-//        
-//        if (buyer == null) {
-//            return "redirect:/revshop/login";
-//        }
-//
-//        Long buyerId = buyer.getBuyer_id();
-//        List<Orders> orders = orderService.getOrdersByBuyer(buyerId);
-//        Orders orderitems=new Orders();
-//        List<OrderItems>orderitems1=orderitems.getOrderItems();
-//        System.out.println(orderitems1);
-//        		for(Orders x:orders)
-//        {
-//        	for (OrderItems item : x.getOrderItems()) {
-//                System.out.println("Product: " + item.getProduct().getName());
-//                System.out.println("Quantity: " + item.getQuantity());
-//                System.out.println("Total Price: " + item.getTotalPrice());
-//            }
-//        }
-//        model.addAttribute("orders", orders);
-//        model.addAttribute("orderItems",orderitems1);
-//        return "orderitems";    
-//    }
     @GetMapping("/orderitems")
     public String getOrderItems(HttpSession session, Model model) {
         Buyer buyer = (Buyer) session.getAttribute("loggedInUser");
