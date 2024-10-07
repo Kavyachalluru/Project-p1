@@ -21,7 +21,8 @@ import java.util.List;
 	 @Query("SELECT oi FROM OrderItems oi JOIN oi.order o WHERE o.buyer.buyer_id = :buyerId")
 	    List<OrderItems> findAllOrderItemsByBuyerId(@Param("buyerId") Long buyerId);
 	   
-	    
+	 @Query("SELECT o FROM Orders o JOIN o.orderItems oi WHERE oi.product.seller.id = :sellerId")
+	    List<Orders> findOrdersBySellerId(@Param("sellerId") Long sellerId);
 	   
 
 	}
