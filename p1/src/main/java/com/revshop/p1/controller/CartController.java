@@ -32,7 +32,7 @@ public class CartController {
         // Calculate the total price
         double totalPrice = 0.0;
         for (Cart cart : cartItems) {
-            totalPrice += cart.getProduct().getPrice() * cart.getQuantity(); // Assuming getProduct() gives you the product and getPrice() returns the product's price
+            totalPrice += cart.getProduct().getDiscountPrice() * cart.getQuantity(); // Assuming getProduct() gives you the product and getPrice() returns the product's price
         }
         
         model.addAttribute("cart", cartItems);
