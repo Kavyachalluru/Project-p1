@@ -28,5 +28,9 @@ public class BuyerService {
 	public Buyer getBuyerByEmail(String email) {
 		return buyer_repo.findByEmail(email).get();
 	}
+	public Buyer UpdateUser(Buyer buyer) {
+		buyer.setRegistrationDate(LocalDateTime.now());
+		return buyer_repo.save(buyer);
+	}
 	
 }

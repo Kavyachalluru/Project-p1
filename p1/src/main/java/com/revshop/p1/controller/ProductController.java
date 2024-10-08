@@ -102,8 +102,8 @@ public class ProductController {
     }
     @GetMapping("/displayProducts")
     public String showProducts(Model model,HttpSession session) {
-    	 Buyer buyer=(Buyer)session.getAttribute("loggedInUser");
-    	 System.out.println(buyer.getBuyer_id());
+    	 //Buyer buyer=(Buyer)session.getAttribute("loggedInUser");
+    	 //System.out.println(buyer.getBuyer_id());
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         return "showProducts";  
