@@ -37,7 +37,6 @@ public class CartController {
         
         model.addAttribute("cart", cartItems);
         model.addAttribute("totalPrice", totalPrice); // Add the total price to the model
-        
         return "cart";	
     }
 

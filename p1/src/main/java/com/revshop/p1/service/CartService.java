@@ -4,6 +4,9 @@ import com.revshop.p1.entity.Cart;
 import com.revshop.p1.entity.Product;
 import com.revshop.p1.entity.Buyer;
 import com.revshop.p1.repository.CartRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +61,9 @@ public class CartService {
         return cartItems.stream()
                 .mapToDouble(item -> item.getQuantity() * item.getProduct().getPrice())
                 .sum();
+    }
+    @Transactional
+    public void deletecart(Buyer buyer) {
+    	cartRepository.deleteByBuyer(buyer);;
     }
 }

@@ -5,11 +5,8 @@
 <head>
     <title>Place Order</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        h1{
-            text-align: center;
-            margin-top: 60px;
-        }
         .order-details {
             display: flex;
             justify-content: space-between;
@@ -185,8 +182,6 @@
         <div class="order-button mt-4">
 			   <input type="hidden" th:field="*{totalPrice}" id="hiddenTotalPrice" />
 			   <input type="hidden" th:field="*{shippingAddress}" id="shippingAddress" />
-			   
-			   
                 <button type="submit" class="btn btn-success">Place Order</button>
         </div>
     </div>
