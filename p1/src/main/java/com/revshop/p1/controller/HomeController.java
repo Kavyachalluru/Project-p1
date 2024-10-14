@@ -12,5 +12,10 @@ public class HomeController {
 	public String displayHomePage() {
 		return "Home/Home";
 	}
+	@GetMapping("/about")
+	public String displayAboutPage() {
+		return "Home/about"; // Return the About page view
+    
+	}
 
 }

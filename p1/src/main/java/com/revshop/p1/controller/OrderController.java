@@ -4,13 +4,16 @@ import com.revshop.p1.entity.Orders;
 import com.revshop.p1.entity.Product;
 import com.revshop.p1.entity.Seller;
 import com.revshop.p1.entity.Buyer;
+import com.revshop.p1.entity.Cart;
 import com.revshop.p1.entity.OrderItems;
+import com.revshop.p1.service.CartService;
 import com.revshop.p1.service.EmailService;
 import com.revshop.p1.service.OrderItemsService;
 import com.revshop.p1.service.OrderService;
 import com.revshop.p1.service.ProductService;
 
 import jakarta.mail.Session;
+import jakarta.persistence.criteria.Order;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
@@ -25,17 +28,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping("/revshop") // Base URL for all endpoints in this controller
+@RequestMapping("/revshop") 
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
     @Autowired
     private ProductService productService;;
-    
+    @Autowired
+    private CartService cartservice;
     @Autowired
     private OrderItemsService ois;
     @Autowired
@@ -66,10 +71,10 @@ public class OrderController {
         if (productImage != null) {
             model.addAttribute("productImage", productImage);
         } else {
-            model.addAttribute("productImage", "default-image.png"); // Fallback or placeholder image
+            model.addAttribute("productImage", "default-image.png"); 
         }
 
-        return "orders2"; // Return the view name
+        return "orders2"; 
     }
 
 
@@ -78,8 +83,8 @@ public class OrderController {
     		        @RequestParam Double totalPrice,
     		        @RequestParam String shippingAddress,
     		        @RequestParam String paymentMethod,
-    		        HttpSession session, // Inject HttpSession to access session attributes
-    		        Model model) {
+    		        HttpSession session, 
+    		        Model model,RedirectAttributes redirectAttributes) {
 
     		    // Retrieve buyerId from session
     		    Buyer buyer = (Buyer) session.getAttribute("loggedInUser"); // Make sure the key matches the one used in your session
@@ -120,9 +125,8 @@ public class OrderController {
     		    ois.saveorderitem(orderitems);
     		    // Optionally, add attributes to the model for rendering
     		    model.addAttribute("order", order);
-    		   
     		    model.addAttribute("message", "Order placed successfully!");
-    		    return "redirect:/revshop/displayProducts"; // Redirect to display products
+    		    return "OrderConfirmation"; 
     		}
     
     @GetMapping("/orderitems")
@@ -136,8 +140,8 @@ public class OrderController {
         Long buyerId = buyer.getBuyer_id();
         List<OrderItems> orderItems = ois.getOrderItemsByBuyerId(buyerId);
         
-        model.addAttribute("orderItems", orderItems); // Pass order items to the view
-        return "orderitems"; // Your view name
+        model.addAttribute("orderItems", orderItems); 
+        return "orderitems"; 
     }
 
 
@@ -146,16 +150,90 @@ public class OrderController {
     public String getSellerOrders(Model model, HttpSession session) {
         Seller seller = (Seller) session.getAttribute("loggedInUser");
         
-        // Check if seller is not null
+        
         if (seller == null) {
             // Handle case where seller is not logged in (e.g., redirect to login page)
             return "redirect:/login";
         }
 
-        // Use the sellerId from the session or the path variable as needed
+       
         List<Orders> orders = orderService.getOrdersBySeller(seller.getId());
         model.addAttribute("orders", orders);
         return "products/ViewOrdersBySeller";  
+    }
+    
+    @GetMapping("/checkout")
+    public String showCart(Model model,@RequestParam("totalPrice") double totalPrice, HttpSession session
+            ) {
+         model.addAttribute("totalPrice",totalPrice);
+        return "orders"; // Return the view name for the cart page
+    }
+    @PostMapping("/addorder")
+    public String submitOrder(
+            @RequestParam String shippingAddress,
+            @RequestParam String paymentMethod,
+            HttpSession session,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        // Retrieve buyer from session
+        Buyer buyer = (Buyer) session.getAttribute("loggedInUser");
+
+        if (buyer == null) {
+            model.addAttribute("message", "You need to log in to place an order.");
+            return "redirect:/revshop/login";
+        }
+
+        // Retrieve all cart items for the buyer
+        List<Cart> cartItems = cartservice.getCartItemsByBuyer(buyer);
+
+        if (cartItems.isEmpty()) {
+            model.addAttribute("message", "Your cart is empty.");
+            return "redirect:/revshop/cart"; // Redirect to the cart page if empty
+        }
+
+        // Create a new order
+        Orders order = new Orders();
+        order.setBuyer(buyer);
+        order.setShippingAddress(shippingAddress);
+        order.setPaymentMethod(paymentMethod);
+
+        double totalOrderPrice = 0.0;
+        for (Cart cart : cartItems) {
+            totalOrderPrice += cart.getProduct().getDiscountPrice() * cart.getQuantity();
+        }
+        order.setTotalPrice(totalOrderPrice);
+        System.out.println("Total Order Price: " + totalOrderPrice);
+
+        // Save the order to get an ID
+        orderService.createOrder(order);
+
+        // Create order items from cart items
+        List<OrderItems> orderItemsList = new ArrayList<>();
+        for (Cart cartItem : cartItems) {
+        	 double itemTotalPrice = cartItem.getProduct().getDiscountPrice() * cartItem.getQuantity();
+             totalOrderPrice += itemTotalPrice;
+            OrderItems orderItem = new OrderItems();
+            orderItem.setOrder(order);
+            orderItem.setProduct(cartItem.getProduct());
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setTotalPrice(itemTotalPrice);
+            orderItemsList.add(orderItem);
+            ois.saveorderitem(orderItem); // Save each order item
+        }
+
+        cartservice.deletecart(buyer);
+        order.setOrderItems(orderItemsList);
+        String buyerEmail = order.getBuyer().getEmail();
+        String subject = "Order Confirmation";
+        String message = "Dear " + order.getBuyer().getFirstName() + ",\n\n"
+                       + "Thank you for your order! Your order ID is " + order.getId()
+                       + ". We'll notify you once your order is shipped.\n\n"
+                       + "Best regards,\nRevShop Team";
+        emailService.sendOrderConfirmationEmail(buyerEmail, subject, message);
+        model.addAttribute("message", "Order placed successfully!");
+        return "OrderConfirmation";
+    }             
     }
 
              
