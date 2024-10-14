@@ -54,7 +54,9 @@ import java.util.List;
 	            throw new RuntimeException("Order not found with ID: " + orderId);
 	        }
 	    }
+	    
+	    public List<Orders> getOrdersBySeller(Long sellerId){
+	    	return orderRepository.findOrdersBySellerId(sellerId);
+	    }
 	   
 	}
-
-

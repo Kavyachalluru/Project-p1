@@ -1,167 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>REVSHOP | Login </title>
     <style>
-        body {
+        /* POPPINS FONT */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            overflow: hidden;
         }
-
-        /* Form Container */
-        .container {
-            width: 90%; /* Reduced the width */
-            max-width: 400px; /* Max-width now set to 400px */
-            padding: 20px; /* Reduced padding */
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
-            transition: transform 0.3s ease-in-out;
-            color: #333;
-            border: 1px solid #007bff;
-        }
-
-        .container:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.4);
-        }
-
-        /* Title Styling */
-        h2 {
-            text-align: center;
-            color: #004080;
-            font-size: 32px;
-            margin-bottom: 30px;
-            position: relative;
-            font-weight: bold;
-        }
-
-        h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: #007bff;
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        /* Form Group */
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #007bff;
-        }
-
-        /* Input Fields */
-        input {
+        /* Background Image Fullscreen */
+        .background-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 8px;
-            border-radius: 30px;
-            border: 1px solid #ddd;
-            outline: none;
-            transition: all 0.3s ease;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-
-        input::placeholder {
-            color: #888;
-        }
-
-        input:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-        }
-
-        /* Button */
-        .btn {
-            width: 100%;
-            background-color: #007bff;
-            color: #fff;
-            padding: 15px;
+            height: 100%;
+            z-index: -1;
             border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 10px 15px rgba(0, 123, 255, 0.2);
-            display: block;
-            margin: 30px auto 10px;
+           background: url('https://lightcastlepartners.com/wp-content/uploads/2023/05/e-commerce-worth-celebrating.webp') no-repeat center center;
+            background-size: cover;
         }
-
-        .btn:hover {
-            background-color: #3399ff;
-            transform: translateY(-3px);
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(39, 39, 39, 0.7);
+            width: 400px;
+            padding: 40px;
+            border-radius: 10px;
+            z-index: 1;
         }
-
-        /* Centered Links Styling */
-        .links {
+        .form-box {
+            width: 100%;
+        }
+        header {
+            color: #fff;
+            font-size: 30px;
             text-align: center;
-            margin-top: 15px; /* Added margin to give space */
+            padding-bottom: 20px;
         }
-
-        .links a {
-            color: #007bff;
-            text-decoration: none;
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
         }
-
-        .links a:hover {
+        .input-field {
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            height: 50px;
+            width: 100%;
+            padding-left: 45px;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            transition: .2s ease;
+        }
+        .input-field:hover, .input-field:focus {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        ::-webkit-input-placeholder {
+            color: #fff;
+        }
+        .input-box i {
+            position: absolute;
+            top: 12px;
+            left: 17px;
+            color: #fff;
+        }
+        .submit {
+            font-size: 15px;
+            font-weight: 500;
+            color: black;
+            height: 45px;
+            width: 100%;
+            border: none;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: .3s ease-in-out;
+        }
+        .submit:hover {
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+        }
+        .top span {
+            color: #fff;
+            font-size: small;
+            display: block;
+            text-align: center;
+        }
+        .top span a {
+            font-weight: 500;
+            color: #fff;
+            margin-left: 5px;
             text-decoration: underline;
         }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .container {
-                width: 90%;
-                max-width: 100%;
-            }
+        .two-col {
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            font-size: small;
+        }
+        .two label a {
+            text-decoration: none;
+            color: #fff;
+        }
+        .two label a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-    	<div class="row">
-            <div class="col-12 mb-3">
-                <a th:href="@{/revshop/home}" class="home-link">
-                    <i class="fas fa-arrow-left"></i> Home
-                </a>
+    <!-- Background Image Fills Entire Page -->
+    <div class="background-iframe"></div>
+
+    <!-- Form Content Overlay -->
+    <div class="wrapper">
+        <div class="form-box">
+            <header>Login</header>
+            <div class="top">
+                <span>Don't have an account? <a th:href="@{/revshop/register}">Seller</a> <a th:href="@{/revshop/buyerRegister}">Buyer</a>
+                </span>
             </div>
+            <form th:action="@{/revshop/login}" method="post">
+                <div class="input-box">
+                    <input type="email" name="email" class="input-field" placeholder="Username or Email" required>
+                    <i class="bx bx-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" class="input-field" placeholder="Password" required>
+                    <i class="bx bx-lock-alt"></i>
+                </div>
+                <div class="input-box">
+                    <input type="submit" class="submit" value="Sign In">
+                </div>
+                <div class="two-col">
+                    <div class="one">
+                        <input type="checkbox" id="login-check" name="rememberMe">
+                        <label for="login-check">Remember Me</label>
+                    </div>
+                    <div class="two">
+                        <label><a th:href="@{/revshop/forgotpassword}">Forgot password?</a></label>
+                    </div>
+                </div>
+            </form>
         </div>
-    	
-        <h2>Login</h2>
-        <form  th:action="@{/revshop/login}" method="POST">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-
-            <button type="submit" class="btn">Login</button>
-
-            <div class="links">
-                <p>Forgot <a href="/revshop/forgotpassword">Password?</a></p>
-                <p>Don't have an account? Register as <a th:href="@{/revshop/register}">Seller</a>/<a th:href="@{/revshop/buyerRegister}">Buyer</a></p>
-            </div>
-        </form>
     </div>
 
 </body>

@@ -2,6 +2,7 @@ package com.revshop.p1.controller;
 
 import com.revshop.p1.entity.Orders;
 import com.revshop.p1.entity.Product;
+import com.revshop.p1.entity.Seller;
 import com.revshop.p1.entity.Buyer;
 import com.revshop.p1.entity.OrderItems;
 import com.revshop.p1.service.EmailService;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -139,6 +141,22 @@ public class OrderController {
     }
 
 
-             
+    
+    @GetMapping("/orders")
+    public String getSellerOrders(Model model, HttpSession session) {
+        Seller seller = (Seller) session.getAttribute("loggedInUser");
+        
+        // Check if seller is not null
+        if (seller == null) {
+            // Handle case where seller is not logged in (e.g., redirect to login page)
+            return "redirect:/login";
+        }
+
+        // Use the sellerId from the session or the path variable as needed
+        List<Orders> orders = orderService.getOrdersBySeller(seller.getId());
+        model.addAttribute("orders", orders);
+        return "products/ViewOrdersBySeller";  
     }
 
+             
+    }

@@ -1,3 +1,4 @@
+
 package com.revshop.p1.entity;
 import jakarta.persistence.*;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Orders {
 
 	    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	    private List<OrderItems> orderItems;
-
+	    
 	    // Constructors, getters, setters
 	    public Orders() {}
 
@@ -79,5 +80,3 @@ public class Orders {
 }
 
 	
-
-
