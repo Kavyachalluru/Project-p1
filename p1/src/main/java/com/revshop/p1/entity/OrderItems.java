@@ -1,3 +1,4 @@
+
 package com.revshop.p1.entity;
 
 import jakarta.persistence.Entity;
@@ -91,4 +92,3 @@ public class OrderItems {
 					+ ", unitPrice=" + unitPrice + ", totalPrice=" + totalPrice + "]";
 		}
 	}
-
